@@ -13,6 +13,26 @@
 		B29FCD5D2740DC3600FD2DB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B29FCD5B2740DC3600FD2DB0 /* Main.storyboard */; };
 		B29FCD5F2740DC3A00FD2DB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B29FCD5E2740DC3A00FD2DB0 /* Assets.xcassets */; };
 		B29FCD622740DC3A00FD2DB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B29FCD602740DC3A00FD2DB0 /* LaunchScreen.storyboard */; };
+		B29FCD6B2740DC8600FD2DB0 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD6A2740DC8600FD2DB0 /* Category.swift */; };
+		B29FCD6D2740DCAD00FD2DB0 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD6C2740DCAD00FD2DB0 /* DataStore.swift */; };
+		B29FCD712740DFE500FD2DB0 /* CategoryMainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD702740DFE500FD2DB0 /* CategoryMainTableViewController.swift */; };
+		B29FCD732740E1DD00FD2DB0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD722740E1DD00FD2DB0 /* Extensions.swift */; };
+		B29FCD752740E22E00FD2DB0 /* CategoryCRUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD742740E22E00FD2DB0 /* CategoryCRUViewController.swift */; };
+		B29FCD782740E92F00FD2DB0 /* CompanyMainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD772740E92F00FD2DB0 /* CompanyMainTableViewController.swift */; };
+		B29FCD7B2740E95F00FD2DB0 /* CompanyCRUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD7A2740E95F00FD2DB0 /* CompanyCRUViewController.swift */; };
+		B29FCD7D2740EAA800FD2DB0 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD7C2740EAA800FD2DB0 /* Company.swift */; };
+		B29FCD7F2741023C00FD2DB0 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD7E2741023C00FD2DB0 /* Customer.swift */; };
+		B29FCD8227411B4B00FD2DB0 /* CustomerMainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD8127411B4B00FD2DB0 /* CustomerMainTableViewController.swift */; };
+		B29FCD8427411B7D00FD2DB0 /* CustomerCRUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD8327411B7D00FD2DB0 /* CustomerCRUViewController.swift */; };
+		B29FCD872741258500FD2DB0 /* StockMainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD862741258500FD2DB0 /* StockMainTableViewController.swift */; };
+		B29FCD89274125CB00FD2DB0 /* StockCRUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD88274125CB00FD2DB0 /* StockCRUViewController.swift */; };
+		B29FCD8B274126AF00FD2DB0 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD8A274126AF00FD2DB0 /* Stock.swift */; };
+		B2C72EBD2742E6E0005411F8 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C72EBC2742E6E0005411F8 /* Order.swift */; };
+		B2C72EBF2742F662005411F8 /* SearchStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C72EBE2742F662005411F8 /* SearchStockViewController.swift */; };
+		B2C72EC1274301CF005411F8 /* SearchStockResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C72EC0274301CF005411F8 /* SearchStockResultsTableViewCell.swift */; };
+		B2C72EC627431D40005411F8 /* OrderMainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C72EC527431D40005411F8 /* OrderMainTableViewController.swift */; };
+		B2C72EC8274322FC005411F8 /* OrderCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C72EC7274322FC005411F8 /* OrderCreateViewController.swift */; };
+		B2C72ECA27447D5D005411F8 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C72EC927447D5D005411F8 /* OrderDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +44,26 @@
 		B29FCD5E2740DC3A00FD2DB0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B29FCD612740DC3A00FD2DB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B29FCD632740DC3A00FD2DB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B29FCD6A2740DC8600FD2DB0 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		B29FCD6C2740DCAD00FD2DB0 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		B29FCD702740DFE500FD2DB0 /* CategoryMainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryMainTableViewController.swift; sourceTree = "<group>"; };
+		B29FCD722740E1DD00FD2DB0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B29FCD742740E22E00FD2DB0 /* CategoryCRUViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCRUViewController.swift; sourceTree = "<group>"; };
+		B29FCD772740E92F00FD2DB0 /* CompanyMainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyMainTableViewController.swift; sourceTree = "<group>"; };
+		B29FCD7A2740E95F00FD2DB0 /* CompanyCRUViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCRUViewController.swift; sourceTree = "<group>"; };
+		B29FCD7C2740EAA800FD2DB0 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		B29FCD7E2741023C00FD2DB0 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		B29FCD8127411B4B00FD2DB0 /* CustomerMainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerMainTableViewController.swift; sourceTree = "<group>"; };
+		B29FCD8327411B7D00FD2DB0 /* CustomerCRUViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerCRUViewController.swift; sourceTree = "<group>"; };
+		B29FCD862741258500FD2DB0 /* StockMainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockMainTableViewController.swift; sourceTree = "<group>"; };
+		B29FCD88274125CB00FD2DB0 /* StockCRUViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCRUViewController.swift; sourceTree = "<group>"; };
+		B29FCD8A274126AF00FD2DB0 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock.swift; sourceTree = "<group>"; };
+		B2C72EBC2742E6E0005411F8 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		B2C72EBE2742F662005411F8 /* SearchStockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStockViewController.swift; sourceTree = "<group>"; };
+		B2C72EC0274301CF005411F8 /* SearchStockResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStockResultsTableViewCell.swift; sourceTree = "<group>"; };
+		B2C72EC527431D40005411F8 /* OrderMainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderMainTableViewController.swift; sourceTree = "<group>"; };
+		B2C72EC7274322FC005411F8 /* OrderCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCreateViewController.swift; sourceTree = "<group>"; };
+		B2C72EC927447D5D005411F8 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +96,8 @@
 		B29FCD542740DC3600FD2DB0 /* assignment8 */ = {
 			isa = PBXGroup;
 			children = (
+				B29FCD6E2740DFB300FD2DB0 /* ViewControllers */,
+				B29FCD692740DC6D00FD2DB0 /* Models */,
 				B29FCD552740DC3600FD2DB0 /* AppDelegate.swift */,
 				B29FCD572740DC3600FD2DB0 /* SceneDelegate.swift */,
 				B29FCD592740DC3600FD2DB0 /* ViewController.swift */,
@@ -63,8 +105,82 @@
 				B29FCD5E2740DC3A00FD2DB0 /* Assets.xcassets */,
 				B29FCD602740DC3A00FD2DB0 /* LaunchScreen.storyboard */,
 				B29FCD632740DC3A00FD2DB0 /* Info.plist */,
+				B29FCD6C2740DCAD00FD2DB0 /* DataStore.swift */,
+				B29FCD722740E1DD00FD2DB0 /* Extensions.swift */,
 			);
 			path = assignment8;
+			sourceTree = "<group>";
+		};
+		B29FCD692740DC6D00FD2DB0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B29FCD6A2740DC8600FD2DB0 /* Category.swift */,
+				B29FCD7C2740EAA800FD2DB0 /* Company.swift */,
+				B29FCD7E2741023C00FD2DB0 /* Customer.swift */,
+				B29FCD8A274126AF00FD2DB0 /* Stock.swift */,
+				B2C72EBC2742E6E0005411F8 /* Order.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B29FCD6E2740DFB300FD2DB0 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B2C72EC227431CA7005411F8 /* Order */,
+				B29FCD852741253400FD2DB0 /* Stock */,
+				B29FCD802741114800FD2DB0 /* Customer */,
+				B29FCD762740E7ED00FD2DB0 /* Company */,
+				B29FCD6F2740DFC000FD2DB0 /* Category */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B29FCD6F2740DFC000FD2DB0 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				B29FCD702740DFE500FD2DB0 /* CategoryMainTableViewController.swift */,
+				B29FCD742740E22E00FD2DB0 /* CategoryCRUViewController.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		B29FCD762740E7ED00FD2DB0 /* Company */ = {
+			isa = PBXGroup;
+			children = (
+				B29FCD772740E92F00FD2DB0 /* CompanyMainTableViewController.swift */,
+				B29FCD7A2740E95F00FD2DB0 /* CompanyCRUViewController.swift */,
+			);
+			path = Company;
+			sourceTree = "<group>";
+		};
+		B29FCD802741114800FD2DB0 /* Customer */ = {
+			isa = PBXGroup;
+			children = (
+				B29FCD8127411B4B00FD2DB0 /* CustomerMainTableViewController.swift */,
+				B29FCD8327411B7D00FD2DB0 /* CustomerCRUViewController.swift */,
+			);
+			path = Customer;
+			sourceTree = "<group>";
+		};
+		B29FCD852741253400FD2DB0 /* Stock */ = {
+			isa = PBXGroup;
+			children = (
+				B29FCD862741258500FD2DB0 /* StockMainTableViewController.swift */,
+				B29FCD88274125CB00FD2DB0 /* StockCRUViewController.swift */,
+				B2C72EBE2742F662005411F8 /* SearchStockViewController.swift */,
+				B2C72EC0274301CF005411F8 /* SearchStockResultsTableViewCell.swift */,
+			);
+			path = Stock;
+			sourceTree = "<group>";
+		};
+		B2C72EC227431CA7005411F8 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				B2C72EC527431D40005411F8 /* OrderMainTableViewController.swift */,
+				B2C72EC7274322FC005411F8 /* OrderCreateViewController.swift */,
+				B2C72EC927447D5D005411F8 /* OrderDetailViewController.swift */,
+			);
+			path = Order;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +254,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2C72EC627431D40005411F8 /* OrderMainTableViewController.swift in Sources */,
+				B29FCD872741258500FD2DB0 /* StockMainTableViewController.swift in Sources */,
+				B29FCD8B274126AF00FD2DB0 /* Stock.swift in Sources */,
 				B29FCD5A2740DC3600FD2DB0 /* ViewController.swift in Sources */,
+				B29FCD752740E22E00FD2DB0 /* CategoryCRUViewController.swift in Sources */,
 				B29FCD562740DC3600FD2DB0 /* AppDelegate.swift in Sources */,
+				B29FCD89274125CB00FD2DB0 /* StockCRUViewController.swift in Sources */,
+				B29FCD7F2741023C00FD2DB0 /* Customer.swift in Sources */,
+				B29FCD7B2740E95F00FD2DB0 /* CompanyCRUViewController.swift in Sources */,
+				B29FCD712740DFE500FD2DB0 /* CategoryMainTableViewController.swift in Sources */,
 				B29FCD582740DC3600FD2DB0 /* SceneDelegate.swift in Sources */,
+				B2C72ECA27447D5D005411F8 /* OrderDetailViewController.swift in Sources */,
+				B29FCD6D2740DCAD00FD2DB0 /* DataStore.swift in Sources */,
+				B2C72EC1274301CF005411F8 /* SearchStockResultsTableViewCell.swift in Sources */,
+				B29FCD7D2740EAA800FD2DB0 /* Company.swift in Sources */,
+				B2C72EBD2742E6E0005411F8 /* Order.swift in Sources */,
+				B29FCD782740E92F00FD2DB0 /* CompanyMainTableViewController.swift in Sources */,
+				B2C72EBF2742F662005411F8 /* SearchStockViewController.swift in Sources */,
+				B2C72EC8274322FC005411F8 /* OrderCreateViewController.swift in Sources */,
+				B29FCD6B2740DC8600FD2DB0 /* Category.swift in Sources */,
+				B29FCD732740E1DD00FD2DB0 /* Extensions.swift in Sources */,
+				B29FCD8227411B4B00FD2DB0 /* CustomerMainTableViewController.swift in Sources */,
+				B29FCD8427411B7D00FD2DB0 /* CustomerCRUViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
