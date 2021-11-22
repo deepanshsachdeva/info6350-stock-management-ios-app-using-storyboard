@@ -92,7 +92,7 @@ class DataStore {
         stock1.name = "iPhone"
         stock1.company = comp1
         stock1.category = catg1
-        stock1.lastTradePrice = 900.9
+        stock1.lastTradePrice = 900.0
         stock1.financialRating = 9
         stock1.logo = UIImage(named: "default_stock")?.pngData()
         addStockItem(stock1)
@@ -101,7 +101,7 @@ class DataStore {
         stock2.name = "Banana"
         stock2.company = comp2
         stock2.category = catg2
-        stock2.lastTradePrice = 5.1
+        stock2.lastTradePrice = 5.0
         stock2.financialRating = 5
         stock2.logo = UIImage(named: "default_stock")?.pngData()
         addStockItem(stock2)
@@ -159,6 +159,9 @@ class DataStore {
         
         let fetchRequest: NSFetchRequest<CategoryCD> = CategoryCD.fetchRequest()
         
+        let sortDescriptor = NSSortDescriptor(key: "oid", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
         print("fetching categories...")
         
         do {
@@ -197,6 +200,9 @@ class DataStore {
         var companies:[CompanyCD] = []
         
         let fetchRequest: NSFetchRequest<CompanyCD> = CompanyCD.fetchRequest()
+        
+        let sortDescriptor = NSSortDescriptor(key: "oid", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         
         print("fetching companies...")
         
@@ -252,6 +258,7 @@ class DataStore {
     }
     
     // MARK: customer tasks
+    
     func addCustomerItem(_ customer: CustomerCD) {
         customer.oid = getNextId()
         
@@ -277,6 +284,9 @@ class DataStore {
         
         let fetchRequest: NSFetchRequest<CustomerCD> = CustomerCD.fetchRequest()
         
+        let sortDescriptor = NSSortDescriptor(key: "oid", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
         print("fetching customers...")
         
         do {
@@ -290,6 +300,113 @@ class DataStore {
         return customers
     }
     
+    func getTotalInvestedAmountForCustomer(customer: CustomerCD) -> Double {
+        var sum = 0.0
+        
+        for order in customer.orders?.allObjects as! [OrderCD] {
+            sum += order.buyAmount
+        }
+        
+        return sum
+    }
+    
+    func getTotalEarnedAmountForCustomer(customer: CustomerCD) -> Double {
+        var sum = 0.0
+        
+        for order in customer.orders?.allObjects as! [OrderCD] {
+            sum += order.sellAmount
+        }
+        
+        return sum
+    }
+    
+    // MARK: orders tasks
+    
+    func addOrderItem(_ order: OrderCD) {
+        order.oid = getNextId()
+        order.buyDate = Date()
+        order.buyPrice = order.stock!.lastTradePrice
+        order.buyAmount = order.stock!.lastTradePrice * Double(order.quantity)
+        
+        do {
+            managedContext.insert(order)
+            try managedContext.save()
+        } catch {
+            fatalError("Error saving context: \(error)")
+        }
+    }
+    
+    func removeOrderItem(_ order: OrderCD) {
+        do {
+            managedContext.delete(order)
+            try managedContext.save()
+        } catch {
+            fatalError("Error saving context: \(error)")
+        }
+    }
+    
+    func getOrders() -> [OrderCD] {
+        var orders:[OrderCD] = []
+        
+        let fetchRequest: NSFetchRequest<OrderCD> = OrderCD.fetchRequest()
+        
+        let sortDescriptor = NSSortDescriptor(key: "oid", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        print("fetching orders...")
+        
+        do {
+            orders = try (self.managedContext.fetch(fetchRequest)) as [OrderCD]
+        } catch {
+            fatalError("Error retrieving orders data: \(error)")
+        }
+        
+        print("orders data fetched")
+        
+        return orders
+    }
+    
+    func getOrdersForCustomer(customer: CustomerCD) -> [OrderCD] {
+        var orders:[OrderCD] = []
+        
+        let fetchRequest: NSFetchRequest<OrderCD> = OrderCD.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "customer.oid == %@", argumentArray: [customer.oid])
+        
+        let sortDescriptor = NSSortDescriptor(key: "oid", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        print("fetching orders for customer \(customer.oid)...")
+        
+        do {
+            orders = try (self.managedContext.fetch(fetchRequest)) as [OrderCD]
+        } catch {
+            fatalError("Error retrieving orders data: \(error)")
+        }
+        
+        print("order for customer \(customer.oid) data fetched")
+        
+        return orders
+    }
+    
+    func sellOrder(order: OrderCD) {
+        if !isOrderSold(order: order) {
+            let stock = order.stock!
+            
+            order.sellPrice = stock.lastTradePrice
+            order.sellAmount = getOrderCurrentValue(order: order)
+            order.sellDate = Date()
+        }
+    }
+    
+    func isOrderSold(order: OrderCD) -> Bool {
+        return (order.sellDate != nil)
+    }
+    
+    func getOrderCurrentValue(order: OrderCD) -> Double {
+        let stock = order.stock!
+        return stock.lastTradePrice * Double(order.quantity)
+    }
+    
     // MARK: common tasks
     func saveContext() {
         print("saving context...")
@@ -301,5 +418,3 @@ class DataStore {
         print("context saved successfully!")
     }
 }
-
-let ds = DataStore.shared

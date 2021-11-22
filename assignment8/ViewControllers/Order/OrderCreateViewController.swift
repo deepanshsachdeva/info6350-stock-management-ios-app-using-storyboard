@@ -6,17 +6,22 @@
 //
 
 import UIKit
+import CoreData
 
 class OrderCreateViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    var customer: Customer!
+    var customer: CustomerCD!
+    
+    var managedContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext!
+    
+    var stocks = DataStore.shared.getStocks()
     
     @IBOutlet weak var customerLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var quantityInput: UITextField!
     @IBOutlet weak var stockPicker: UIPickerView!
     
-    var selStock:Stock!
+    var selStock:StockCD!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +31,9 @@ class OrderCreateViewController: UIViewController, UIPickerViewDelegate, UIPicke
         stockPicker.delegate = self
         stockPicker.dataSource = self
         
-        customerLabel.text = "\(customer.description) (ID: \(customer.id))"
+        customerLabel.text = "\(customer.firstName!+" "+customer.lastName!) (ID: \(customer.oid))"
         
-        selStock = ds.stocks[0]
+        selStock = stocks[0]
         
         setFieldsFor(stock: selStock)
     }
@@ -38,20 +43,20 @@ class OrderCreateViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return ds.stocks.count
+        return stocks.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return ds.stocks[row].description
+        return stocks[row].name
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selStock = ds.stocks[row]
+        selStock = stocks[row]
         
         setFieldsFor(stock: selStock)
     }
     
-    func setFieldsFor(stock: Stock) {
+    func setFieldsFor(stock: StockCD) {
         priceLabel.text = "Last Trade Price: $\(stock.lastTradePrice)"
     }
     
@@ -66,11 +71,15 @@ class OrderCreateViewController: UIViewController, UIPickerViewDelegate, UIPicke
             return
         }
         
-        let order = Order(customer: customer, stock: selStock, quantity: quantity!)
+        let newOrder = OrderCD(context: managedContext)
         
-        customer.addOrder(order)
+        newOrder.customer = customer
+        newOrder.stock = selStock
+        newOrder.quantity = Int16(quantity!)
         
-        let alert = UIAlertController(title: "Success", message: "Order ID \(order.id) created", preferredStyle: UIAlertController.Style.alert)
+        DataStore.shared.addOrderItem(newOrder)
+        
+        let alert = UIAlertController(title: "Success", message: "order created", preferredStyle: UIAlertController.Style.alert)
         
         let successAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) {_ in
             self.navigationController?.popViewController(animated: true)

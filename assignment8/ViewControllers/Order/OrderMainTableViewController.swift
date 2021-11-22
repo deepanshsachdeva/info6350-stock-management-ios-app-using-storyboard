@@ -9,7 +9,11 @@ import UIKit
 
 class OrderMainTableViewController: UITableViewController {
     
-    var customer:Customer!
+    var customer:CustomerCD!
+    
+    var orders:[OrderCD] = []
+    
+    let ds = DataStore.shared
 
     @IBOutlet weak var customerLabel: UILabel!
     
@@ -22,15 +26,13 @@ class OrderMainTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         //  self.navigationItem.leftBarButtonItem = self.editButtonItem
         
-        customerLabel.text = "for \(customer.description) (ID: \(customer.id))"
+        customerLabel.text = "for \(customer.firstName!+" "+customer.lastName!) (ID: \(customer.oid))"
+        
+        refreshData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        tableView.reloadData()
-        if !customer.orders.isEmpty {
-            print(customer.orders[0].isSold())
-        }
-        
+        refreshData()
     }
 
     // MARK: - Table view data source
@@ -42,7 +44,7 @@ class OrderMainTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        let count = customer.orders.count
+        let count = orders.count
         
         if count == 0 {
             tableView.setEmptyView(title: "You don't have any order.", message: "Your orders will be in here.")
@@ -57,38 +59,39 @@ class OrderMainTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        let order = customer.orders[indexPath.row]
+        let order = orders[indexPath.row]
         
-        cell.textLabel?.text = "ID: \(order.id) Stock: \(order.stock.name)"
-        cell.detailTextLabel?.text = "Quantity: \(order.quantity) Current Value: $\(order.getCurrentValue())"
+        cell.textLabel?.text = "ID: \(order.oid) Stock: \((order.stock?.name)!)"
+        cell.detailTextLabel?.text = "Quantity: \(order.quantity) Current Value: $\(ds.getOrderCurrentValue(order: order))"
 
         return cell
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        if !self.customer.orders[indexPath.row].isSold() {
+
+        if !ds.isOrderSold(order: orders[indexPath.row]) {
             let action = UIContextualAction(style: .normal, title: "Sell", handler: {(action, view, completionHandler) in
-                self.customer.orders[indexPath.row].sell()
-                self.tableView.reloadData()
                 
+                self.ds.sellOrder(order: self.orders[indexPath.row])
+                self.refreshData()
+
                 let alert = UIAlertController(title: "Success", message: "sell success", preferredStyle: UIAlertController.Style.alert)
-                
+
                 let successAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) {_ in
                     self.navigationController?.popViewController(animated: true)
                 }
                 alert.addAction(successAction)
-                
+
                 self.present(alert, animated: true, completion: nil)
-                
+
                 completionHandler(true)
             })
-            
+
             action.backgroundColor = .systemGreen
-        
+
             return UISwipeActionsConfiguration(actions: [action])
         }
-        
+
         return nil
     }
 
@@ -104,20 +107,26 @@ class OrderMainTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            customer.orders.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            ds.removeOrderItem(orders[indexPath.row])
+            refreshData()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        if customer.orders[indexPath.row].isSold() {
+        if ds.isOrderSold(order: orders[indexPath.row]) {
             return UITableViewCell.EditingStyle.none
         }
         
         return UITableViewCell.EditingStyle.delete
     }
+    
+    func refreshData() {
+        orders = ds.getOrdersForCustomer(customer: customer)
+        tableView.reloadData()
+    }
+
 
     /*
     // Override to support rearranging the table view.
@@ -145,7 +154,7 @@ class OrderMainTableViewController: UITableViewController {
             let row = self.tableView.indexPathForSelectedRow?.row
             
             if let vdc = segue.destination as? OrderDetailViewController {
-                vdc.order = customer.orders[row ?? 0]
+                 vdc.order = orders[row ?? 0]
             }
         } else {
             if let vdc = segue.destination as? OrderCreateViewController {

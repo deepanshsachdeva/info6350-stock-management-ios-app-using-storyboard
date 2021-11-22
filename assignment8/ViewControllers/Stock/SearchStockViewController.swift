@@ -69,7 +69,6 @@ class SearchStockViewController: UIViewController, UITableViewDelegate, UITableV
         case 2:
             filteredStocks = stocks.filter({ $0.category?.name?.lowercased().contains(keyword.lowercased()) as! Bool })
         case 3:
-            print("3")
             let searchTerm = Int(keyword)
             
             guard searchTerm != nil else {
@@ -82,7 +81,6 @@ class SearchStockViewController: UIViewController, UITableViewDelegate, UITableV
             filteredStocks = stocks.filter({ Int($0.financialRating) == searchTerm })
             
         case 4:
-            print("4")
             let searchTerm = Double(keyword)
             
             guard searchTerm != nil else {

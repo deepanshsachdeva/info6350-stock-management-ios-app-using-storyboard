@@ -8,7 +8,9 @@
 import UIKit
 
 class OrderDetailViewController: UIViewController {
-    var order:Order!
+    var order:OrderCD!
+    
+    let ds = DataStore.shared
 
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var stockLabel: UILabel!
@@ -24,23 +26,26 @@ class OrderDetailViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        let stock = order.stock
-        idLabel.text = "\(order.description)"
-        stockLabel.text = "Stock ID: \(stock.id) & Name: \(stock.name)"
+        let stock = order.stock!
+        
+        idLabel.text = "ID: \(order.oid)"
+        stockLabel.text = "Stock ID: \(stock.oid) & Name: \(stock.name!)"
         stockPriceLabel.text = "$\(stock.lastTradePrice)"
         buyPriceLabel.text = "$\(order.buyPrice)"
-        datePicker.date = order.buyDate
+        datePicker.date = order.buyDate!
         
         quantityLabel.text = "\(order.quantity)"
         
-        currentValueLabel.text = "$\(order.getCurrentValue())"
+        currentValueLabel.text = "$\(ds.getOrderCurrentValue(order: order))"
         buyValueLabel.text = "$\(order.buyAmount)"
         
-        earningLabel.text = "Earnings = $ \(order.getCurrentValue() - order.buyAmount)"
+        earningLabel.text = "Earnings = $ \(ds.getOrderCurrentValue(order: order) - order.buyAmount)"
     }
     
     @IBAction func doAction(_ sender: Any) {
         order.buyDate = datePicker.date
+        
+        ds.saveContext()
         
         let alert = UIAlertController(title: "Success", message: "order updated", preferredStyle: UIAlertController.Style.alert)
         

@@ -12,6 +12,8 @@ class CustomerCRUViewController: UIViewController {
     
     var customer:CustomerCD?
     
+    let ds = DataStore.shared
+    
     var managedContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext!
 
     @IBOutlet weak var titleLabel: UILabel!
@@ -42,9 +44,8 @@ class CustomerCRUViewController: UIViewController {
             contactInput.text = customer?.contact
             emailInput.text = customer?.email
             
-//            TODO: customer invested stats
-//            investedLabel.text = " Invested: $\(customer!.getTotalInvestingAmount())"
-//            earnedLabel.text = " Earned: $\(customer!.getTotalEarningAmount())"
+            investedLabel.text = "Invested: $\(ds.getTotalInvestedAmountForCustomer(customer: customer!))"
+            earnedLabel.text   = "Earned: $\(ds.getTotalEarnedAmountForCustomer(customer: customer!))"
             
             btnCreateOrUpdate.setTitle("Save", for: .normal)
         } else {
@@ -57,6 +58,13 @@ class CustomerCRUViewController: UIViewController {
             orderTabBtn.isEnabled = false
             
             btnCreateOrUpdate.setTitle("Create", for: .normal)
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if customer != nil {
+            investedLabel.text = "Invested: $\(ds.getTotalInvestedAmountForCustomer(customer: customer!))"
+            earnedLabel.text   = "Earned: $\(ds.getTotalEarnedAmountForCustomer(customer: customer!))"
         }
     }
     
@@ -168,8 +176,7 @@ class CustomerCRUViewController: UIViewController {
         // Pass the selected object to the new view controller.
         
         if let vdc = segue.destination as? OrderMainTableViewController {
-//            TODO: customer orders
-//            vdc.customer = customer
+            vdc.customer = customer
         }
     }
 

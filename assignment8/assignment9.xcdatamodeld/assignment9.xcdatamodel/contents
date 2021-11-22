@@ -3,7 +3,7 @@
     <entity name="CategoryCD" representedClassName="CategoryCD" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="oid" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="stocks" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StockCD" inverseName="category" inverseEntity="StockCD"/>
+        <relationship name="stocks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StockCD" inverseName="category" inverseEntity="StockCD"/>
     </entity>
     <entity name="CompanyCD" representedClassName="CompanyCD" syncable="YES" codeGenerationType="class">
         <attribute name="email" optional="YES" attributeType="String"/>
@@ -12,7 +12,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="oid" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="symbol" optional="YES" attributeType="String"/>
-        <relationship name="stocks" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StockCD" inverseName="company" inverseEntity="StockCD"/>
+        <relationship name="stocks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StockCD" inverseName="company" inverseEntity="StockCD"/>
     </entity>
     <entity name="CustomerCD" representedClassName="CustomerCD" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String"/>
@@ -21,6 +21,19 @@
         <attribute name="firstName" optional="YES" attributeType="String"/>
         <attribute name="lastName" optional="YES" attributeType="String"/>
         <attribute name="oid" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="orders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OrderCD" inverseName="customer" inverseEntity="OrderCD"/>
+    </entity>
+    <entity name="OrderCD" representedClassName="OrderCD" syncable="YES" codeGenerationType="class">
+        <attribute name="buyAmount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="buyDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="buyPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="oid" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="quantity" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sellAmount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="sellDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="sellPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="customer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CustomerCD" inverseName="orders" inverseEntity="CustomerCD"/>
+        <relationship name="stock" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StockCD" inverseName="orders" inverseEntity="StockCD"/>
     </entity>
     <entity name="StockCD" representedClassName="StockCD" syncable="YES" codeGenerationType="class">
         <attribute name="financialRating" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -30,11 +43,13 @@
         <attribute name="oid" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryCD" inverseName="stocks" inverseEntity="CategoryCD"/>
         <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CompanyCD" inverseName="stocks" inverseEntity="CompanyCD"/>
+        <relationship name="orders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OrderCD" inverseName="stock" inverseEntity="OrderCD"/>
     </entity>
     <elements>
-        <element name="CategoryCD" positionX="-63" positionY="-18" width="128" height="74"/>
-        <element name="CompanyCD" positionX="-54" positionY="9" width="128" height="134"/>
-        <element name="StockCD" positionX="-36" positionY="63" width="128" height="134"/>
-        <element name="CustomerCD" positionX="-18" positionY="108" width="128" height="119"/>
+        <element name="CategoryCD" positionX="24.9580078125" positionY="33.00607299804688" width="128" height="88"/>
+        <element name="CompanyCD" positionX="594.2578125" positionY="-7.575103759765625" width="128" height="148"/>
+        <element name="CustomerCD" positionX="-53.054443359375" positionY="320.1753997802734" width="128" height="148"/>
+        <element name="StockCD" positionX="335.046875" positionY="56.14892578125" width="128" height="163"/>
+        <element name="OrderCD" positionX="157.322509765625" positionY="340.9144592285156" width="128" height="193"/>
     </elements>
 </model>
