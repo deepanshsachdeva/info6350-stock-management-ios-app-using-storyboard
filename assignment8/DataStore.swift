@@ -9,12 +9,7 @@ import Foundation
 import CoreData
 import UIKit
 
-class DataStore {
-    var categories:[Category] = []
-    var companies:[Company]   = []
-    var stocks:[Stock]        = []
-    var customers:[Customer]  = []
-    
+class DataStore {    
     static let shared = DataStore()
     
     private var nextId:Int16 = 0
