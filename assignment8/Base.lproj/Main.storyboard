@@ -870,7 +870,7 @@
         <scene sceneID="PEl-Xh-O8P">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="I6S-5c-eMJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Categories" image="square.fill" catalog="system" id="TrY-y1-UQ1"/>
+                    <tabBarItem key="tabBarItem" title="Categories" image="list.bullet.rectangle.portrait.fill" catalog="system" id="TrY-y1-UQ1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1KO-pZ-ijU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -889,7 +889,7 @@
         <scene sceneID="Of5-Pd-DeL">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Znb-dC-XMW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Companies" image="circlebadge.fill" catalog="system" id="Abd-hu-DwU"/>
+                    <tabBarItem key="tabBarItem" title="Companies" image="suitcase.fill" catalog="system" id="Abd-hu-DwU"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xiD-r7-1Wc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -908,7 +908,7 @@
         <scene sceneID="lmD-aB-tJc">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VUM-cj-aGc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Customers" image="person.fill" catalog="system" id="eSc-V3-E2I"/>
+                    <tabBarItem key="tabBarItem" title="Customers" image="person.2.fill" catalog="system" id="eSc-V3-E2I"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sJD-t2-OQo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -927,7 +927,7 @@
         <scene sceneID="qGg-hg-mod">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3GA-WH-jS2" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Stocks" image="star.square.fill" catalog="system" id="vaR-Dt-iGi"/>
+                    <tabBarItem key="tabBarItem" title="Stocks" image="dollarsign.circle.fill" catalog="system" id="vaR-Dt-iGi"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="9Sf-qg-r4L">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -1034,13 +1034,13 @@
         <segue reference="Abh-hE-FAf"/>
         <segue reference="b0f-Te-tqu"/>
         <segue reference="ghK-us-Xk1"/>
-        <segue reference="vUm-aw-cNe"/>
+        <segue reference="Kv3-QS-OU2"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="circlebadge.fill" catalog="system" width="128" height="120"/>
-        <image name="person.fill" catalog="system" width="128" height="120"/>
-        <image name="square.fill" catalog="system" width="128" height="114"/>
-        <image name="star.square.fill" catalog="system" width="128" height="114"/>
+        <image name="dollarsign.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="list.bullet.rectangle.portrait.fill" catalog="system" width="115" height="128"/>
+        <image name="person.2.fill" catalog="system" width="128" height="80"/>
+        <image name="suitcase.fill" catalog="system" width="128" height="100"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
