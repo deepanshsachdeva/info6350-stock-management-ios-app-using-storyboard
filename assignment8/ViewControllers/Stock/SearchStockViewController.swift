@@ -9,7 +9,10 @@ import UIKit
 
 class SearchStockViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var filteredStocks: [Stock] = []
+    var stocks:[StockCD] = DataStore.shared.getStocks()
+    
+    var filteredStocks: [StockCD] = []
+    
     @IBOutlet weak var keywordInput: UITextField!
     @IBOutlet weak var categorySelector: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
@@ -41,9 +44,9 @@ class SearchStockViewController: UIViewController, UITableViewDelegate, UITableV
         
         let cell:SearchStockResultsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SearchStockResultsTableViewCell
         
-        cell.textLabel?.text = "\(filteredStocks[indexPath.row].description)"
+        cell.textLabel?.text = "\(filteredStocks[indexPath.row].name!)"
         
-        cell.imageView?.image = filteredStocks[indexPath.row].logo
+        cell.imageView?.image = UIImage(data: filteredStocks[indexPath.row].logo!)
                 
         return cell
     }
@@ -60,12 +63,13 @@ class SearchStockViewController: UIViewController, UITableViewDelegate, UITableV
         
         switch categorySelector.selectedSegmentIndex {
         case 0:
-            filteredStocks = ds.stocks.filter({ $0.name.lowercased().contains(keyword.lowercased()) })
+            filteredStocks = stocks.filter({ $0.name?.lowercased().contains(keyword.lowercased()) as! Bool })
         case 1:
-            filteredStocks = ds.stocks.filter({ $0.company.name.lowercased().contains(keyword.lowercased()) })
+            filteredStocks = stocks.filter({ $0.company?.name?.lowercased().contains(keyword.lowercased()) as! Bool })
         case 2:
-            filteredStocks = ds.stocks.filter({ $0.category.name.lowercased().contains(keyword.lowercased()) })
+            filteredStocks = stocks.filter({ $0.category?.name?.lowercased().contains(keyword.lowercased()) as! Bool })
         case 3:
+            print("3")
             let searchTerm = Int(keyword)
             
             guard searchTerm != nil else {
@@ -75,9 +79,10 @@ class SearchStockViewController: UIViewController, UITableViewDelegate, UITableV
                 return
             }
             
-            filteredStocks = ds.stocks.filter({ $0.financialRating == searchTerm })
+            filteredStocks = stocks.filter({ Int($0.financialRating) == searchTerm })
             
         case 4:
+            print("4")
             let searchTerm = Double(keyword)
             
             guard searchTerm != nil else {
@@ -87,7 +92,7 @@ class SearchStockViewController: UIViewController, UITableViewDelegate, UITableV
                 return
             }
             
-            filteredStocks = ds.stocks.filter({ $0.lastTradePrice == searchTerm })
+            filteredStocks = stocks.filter({ $0.lastTradePrice == searchTerm })
         default:
             return
         }

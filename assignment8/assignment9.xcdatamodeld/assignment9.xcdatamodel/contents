@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CategoryCD" representedClassName="CategoryCD" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="oid" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="stocks" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StockCD" inverseName="category" inverseEntity="StockCD"/>
+    </entity>
+    <entity name="CompanyCD" representedClassName="CompanyCD" syncable="YES" codeGenerationType="class">
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="headquarter" optional="YES" attributeType="String"/>
+        <attribute name="logo" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="oid" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="symbol" optional="YES" attributeType="String"/>
+        <relationship name="stocks" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StockCD" inverseName="company" inverseEntity="StockCD"/>
+    </entity>
+    <entity name="CustomerCD" representedClassName="CustomerCD" syncable="YES" codeGenerationType="class">
+        <attribute name="address" optional="YES" attributeType="String"/>
+        <attribute name="contact" optional="YES" attributeType="String"/>
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="firstName" optional="YES" attributeType="String"/>
+        <attribute name="lastName" optional="YES" attributeType="String"/>
+        <attribute name="oid" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="StockCD" representedClassName="StockCD" syncable="YES" codeGenerationType="class">
+        <attribute name="financialRating" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastTradePrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="logo" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="oid" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryCD" inverseName="stocks" inverseEntity="CategoryCD"/>
+        <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CompanyCD" inverseName="stocks" inverseEntity="CompanyCD"/>
+    </entity>
+    <elements>
+        <element name="CategoryCD" positionX="-63" positionY="-18" width="128" height="74"/>
+        <element name="CompanyCD" positionX="-54" positionY="9" width="128" height="134"/>
+        <element name="StockCD" positionX="-36" positionY="63" width="128" height="134"/>
+        <element name="CustomerCD" positionX="-18" positionY="108" width="128" height="119"/>
+    </elements>
+</model>

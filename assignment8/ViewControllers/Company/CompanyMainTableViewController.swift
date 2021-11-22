@@ -9,6 +9,8 @@ import UIKit
 
 class CompanyMainTableViewController: UITableViewController {
 
+    var companies:[CompanyCD] = DataStore.shared.getCompanies()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,7 +22,7 @@ class CompanyMainTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        tableView.reloadData()
+        refreshData()
     }
 
     // MARK: - Table view data source
@@ -32,7 +34,7 @@ class CompanyMainTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        let count = ds.companies.count
+        let count = companies.count
         
         if count == 0 {
             tableView.setEmptyView(title: "You don't have any company.", message: "Your companies will be in here.")
@@ -49,9 +51,9 @@ class CompanyMainTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
-        cell.textLabel?.text = "ID:\(ds.companies[indexPath.row].id) \(ds.companies[indexPath.row].description)"
+        cell.textLabel?.text = "ID:\(companies[indexPath.row].oid) \(companies[indexPath.row].name!)"
         
-        cell.imageView?.image = ds.companies[indexPath.row].logo
+        cell.imageView?.image = UIImage(data: companies[indexPath.row].logo!)
 
         return cell
     }
@@ -69,11 +71,16 @@ class CompanyMainTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            ds.companies.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            DataStore.shared.removeCompanyItem(companies[indexPath.row])            
+            refreshData()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
+    }
+    
+    func refreshData() {
+        companies = DataStore.shared.getCompanies()
+        tableView.reloadData()
     }
 
     /*
@@ -102,7 +109,7 @@ class CompanyMainTableViewController: UITableViewController {
             let row = self.tableView.indexPathForSelectedRow?.row
             
             if let vdc = segue.destination as? CompanyCRUViewController {
-                vdc.company = ds.companies[row ?? 0]
+                vdc.company = companies[row ?? 0]
             }
         }
     }

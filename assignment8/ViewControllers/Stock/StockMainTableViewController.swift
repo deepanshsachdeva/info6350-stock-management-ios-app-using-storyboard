@@ -8,7 +8,9 @@
 import UIKit
 
 class StockMainTableViewController: UITableViewController {
-
+    
+    var stocks:[StockCD] = DataStore.shared.getStocks()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,7 +22,7 @@ class StockMainTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        tableView.reloadData()
+        refreshData()
     }
 
     // MARK: - Table view data source
@@ -32,7 +34,7 @@ class StockMainTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        let count = ds.stocks.count
+        let count = stocks.count
         
         if count == 0 {
             tableView.setEmptyView(title: "You don't have any stock.", message: "Your stocks will be in here.")
@@ -49,9 +51,9 @@ class StockMainTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
-        cell.textLabel?.text = "ID:\(ds.stocks[indexPath.row].id) \(ds.stocks[indexPath.row].description)"
+        cell.textLabel?.text = "ID:\(stocks[indexPath.row].oid) \(stocks[indexPath.row].name!)"
         
-        cell.imageView?.image = ds.stocks[indexPath.row].logo
+        cell.imageView?.image = UIImage(data: stocks[indexPath.row].logo!)
 
         return cell
     }
@@ -68,11 +70,16 @@ class StockMainTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            ds.stocks.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            DataStore.shared.removeStockItem(stocks[indexPath.row])
+            refreshData()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
+    }
+    
+    func refreshData() {
+        stocks = DataStore.shared.getStocks()
+        tableView.reloadData()
     }
 
     /*
@@ -102,7 +109,7 @@ class StockMainTableViewController: UITableViewController {
             let row = self.tableView.indexPathForSelectedRow?.row
             
             if let vdc = segue.destination as? StockCRUViewController {
-                vdc.stock = ds.stocks[row ?? 0]
+                vdc.stock = stocks[row ?? 0]
             }
         }
     }

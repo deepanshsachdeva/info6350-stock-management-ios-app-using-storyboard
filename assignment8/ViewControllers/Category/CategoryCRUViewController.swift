@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import CoreData
 
 class CategoryCRUViewController: UIViewController {
     
-    var category:Category?
+    var category:CategoryCD?
+    
+    var managedContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext!
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
@@ -26,7 +29,7 @@ class CategoryCRUViewController: UIViewController {
             btnCreateOrUpdate.setTitle("Create", for: .normal)
         } else {
             titleLabel.text = category?.name
-            idLabel.text = "ID: \(category!.id)"
+            idLabel.text = "ID: \(category!.oid)"
             inputName.text = category?.name
             btnCreateOrUpdate.setTitle("Save", for: .normal)
         }
@@ -46,11 +49,17 @@ class CategoryCRUViewController: UIViewController {
         var alertMessage: String!
         
         if category == nil {
-            ds.categories.append(Category(name: name))
+            let newCategory = CategoryCD(context: managedContext)
+            newCategory.name = name
+            
+            DataStore.shared.addCategoryItem(newCategory)
             
             alertMessage = "'\(name)' category added"
         } else {
             category?.name = name
+            
+            DataStore.shared.saveContext()
+            
             alertMessage = "category updated"
         }
         

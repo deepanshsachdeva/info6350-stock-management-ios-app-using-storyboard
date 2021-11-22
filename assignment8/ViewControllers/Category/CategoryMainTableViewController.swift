@@ -8,6 +8,8 @@
 import UIKit
 
 class CategoryMainTableViewController: UITableViewController {
+    
+    var categories:[CategoryCD] = DataStore.shared.getCategories() 
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +22,7 @@ class CategoryMainTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        tableView.reloadData()
+        refreshData()
     }
 
     // MARK: - Table view data source
@@ -32,7 +34,7 @@ class CategoryMainTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        let count = ds.categories.count
+        let count = categories.count
         
         if count == 0 {
             tableView.setEmptyView(title: "You don't have any category.", message: "Your categories will be in here.")
@@ -49,7 +51,7 @@ class CategoryMainTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
-        cell.textLabel?.text = "ID:\(ds.categories[indexPath.row].id) \(ds.categories[indexPath.row].name)"
+        cell.textLabel?.text = "ID:\(categories[indexPath.row].oid) \(categories[indexPath.row].name!)"
 
         return cell
     }
@@ -65,11 +67,16 @@ class CategoryMainTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            ds.categories.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            DataStore.shared.removeCategoryItem(categories[indexPath.row])
+            refreshData()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
+    }
+    
+    func refreshData() {
+        categories = DataStore.shared.getCategories()
+        tableView.reloadData()
     }
 
     /*
@@ -98,7 +105,7 @@ class CategoryMainTableViewController: UITableViewController {
             let row = self.tableView.indexPathForSelectedRow?.row
             
             if let vdc = segue.destination as? CategoryCRUViewController {
-                vdc.category = ds.categories[row ?? 0]
+                vdc.category = categories[row ?? 0]
             }
         }
     }

@@ -9,6 +9,8 @@ import UIKit
 
 class CustomerMainTableViewController: UITableViewController {
 
+    var customers:[CustomerCD] = DataStore.shared.getCustomers()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,7 +22,7 @@ class CustomerMainTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        tableView.reloadData()
+        refreshData()
     }
 
     // MARK: - Table view data source
@@ -32,7 +34,7 @@ class CustomerMainTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        let count = ds.customers.count
+        let count = customers.count
         
         if count == 0 {
             tableView.setEmptyView(title: "You don't have any customer.", message: "Your customers will be in here.")
@@ -48,8 +50,10 @@ class CustomerMainTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-
-        cell.textLabel?.text = "ID:\(ds.customers[indexPath.row].id) \(ds.customers[indexPath.row].description)"
+        
+        let customer = customers[indexPath.row]
+        
+        cell.textLabel?.text = "ID:\(customer.oid) \(customer.firstName!+" "+customer.lastName!)"
 
         return cell
     }
@@ -68,11 +72,16 @@ class CustomerMainTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            ds.customers.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            DataStore.shared.removeCustomerItem(customers[indexPath.row])
+            refreshData()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
+    }
+    
+    func refreshData() {
+        customers = DataStore.shared.getCustomers()
+        tableView.reloadData()
     }
 
     /*
@@ -101,7 +110,7 @@ class CustomerMainTableViewController: UITableViewController {
             let row = self.tableView.indexPathForSelectedRow?.row
             
             if let vdc = segue.destination as? CustomerCRUViewController {
-                vdc.customer = ds.customers[row ?? 0]
+                vdc.customer = customers[row ?? 0]
             }
         }
     }

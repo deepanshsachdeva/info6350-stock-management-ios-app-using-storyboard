@@ -6,12 +6,18 @@
 //
 
 import UIKit
+import CoreData
 
 class StockCRUViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var stock:Stock?
+    var stock:StockCD?
+    
+    var managedContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext!
     
     let defaultImage:UIImage = UIImage(named: "default_stock")!
+    
+    let categories = DataStore.shared.getCategories()
+    let companies  = DataStore.shared.getCompanies()
     
     var selImage:UIImage?
 
@@ -25,8 +31,8 @@ class StockCRUViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var btnCreateOrUpdate: UIButton!
     
     @IBOutlet weak var imageView: UIImageView!
-    var selCategory: Category!
-    var selCompany: Company!
+    var selCategory: CategoryCD!
+    var selCompany: CompanyCD!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,19 +46,19 @@ class StockCRUViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         companyPicker.dataSource = self
         
         if stock != nil {
-            selImage = stock?.logo
+            selImage = UIImage(data: (stock?.logo)!)
             
             titleLabel.text = stock?.name
-            idLabel.text = "ID: \(stock!.id)"
+            idLabel.text = "ID: \(stock!.oid)"
             nameInput.text = stock?.name
             
-            let ixCategory = ds.categories.firstIndex(where: {$0.id == stock?.category.id})
+            let ixCategory = categories.firstIndex(where: {$0.id == stock?.category?.id})
             categoryPicker.selectRow(ixCategory!, inComponent: 0, animated: true)
-            selCategory = ds.categories[ixCategory!]
+            selCategory = categories[ixCategory!]
             
-            let ixCompany = ds.companies.firstIndex(where: {$0.id == stock?.company.id})
+            let ixCompany = companies.firstIndex(where: {$0.id == stock?.company?.id})
             companyPicker.selectRow(ixCompany!, inComponent: 0, animated: true)
-            selCompany = ds.companies[ixCompany!]
+            selCompany = companies[ixCompany!]
             
             lastTradePriceInput.text = String(stock!.lastTradePrice)
             financialRatingInput.text = String(stock!.financialRating)
@@ -64,8 +70,8 @@ class StockCRUViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             titleLabel.text = "Create Stock"
             idLabel.text = ""
             
-            selCategory = ds.categories[0]
-            selCompany = ds.companies[0]
+            selCategory = categories[0]
+            selCompany = companies[0]
             
             btnCreateOrUpdate.setTitle("Create", for: .normal)
         }
@@ -105,26 +111,26 @@ class StockCRUViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == categoryPicker {
-            return ds.categories.count
+            return categories.count
         }
         
-        return ds.companies.count
+        return companies.count
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == categoryPicker {
-            selCategory = ds.categories[row]
+            selCategory = categories[row]
         } else {
-            selCompany = ds.companies[row]
+            selCompany = companies[row]
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView == categoryPicker {
-            return ds.categories[row].description
+            return categories[row].name
         }
         
-        return ds.companies[row].description
+        return companies[row].name
     }
     
     @IBAction func doAction(_ sender: UIButton) {
@@ -163,12 +169,24 @@ class StockCRUViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             stock!.category = selCategory
             stock!.company = selCompany
             stock!.lastTradePrice = lastTradePrice!
-            stock!.financialRating = financialRating!
-            stock!.logo = selImage!
+            stock!.financialRating = Int16(financialRating!)
+            stock!.logo = selImage?.pngData()
+            
+            DataStore.shared.saveContext()
             
             alertMessage = "stock updated"
         } else {
-            ds.stocks.append(Stock(name: name, company: selCompany, lastTradePrice: lastTradePrice!, financialRating: financialRating!, category: selCategory))
+            let newStock = StockCD(context: managedContext)
+            
+            newStock.name = name
+            newStock.company = selCompany
+            newStock.category = selCategory
+            newStock.lastTradePrice = lastTradePrice!
+            newStock.financialRating = Int16(financialRating!)
+            newStock.logo = selImage?.pngData()
+            
+            DataStore.shared.addStockItem(newStock)
+            
             alertMessage = "'\(name)' stock created"
         }
         

@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import CoreData
 
 class CustomerCRUViewController: UIViewController {
     
-    var customer:Customer?
+    var customer:CustomerCD?
+    
+    var managedContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext!
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
@@ -30,8 +33,8 @@ class CustomerCRUViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         if customer != nil {
-            titleLabel.text = customer?.description
-            idLabel.text = "ID: \(customer!.id)"
+            titleLabel.text = "\(customer!.firstName!+" "+customer!.lastName!)"
+            idLabel.text = "ID: \(customer!.oid)"
             
             firstnameInput.text = customer?.firstName
             lastnameInput.text = customer?.lastName
@@ -39,8 +42,9 @@ class CustomerCRUViewController: UIViewController {
             contactInput.text = customer?.contact
             emailInput.text = customer?.email
             
-            investedLabel.text = " Invested: $\(customer!.getTotalInvestingAmount())"
-            earnedLabel.text = " Earned: $\(customer!.getTotalEarningAmount())"
+//            TODO: customer invested stats
+//            investedLabel.text = " Invested: $\(customer!.getTotalInvestingAmount())"
+//            earnedLabel.text = " Earned: $\(customer!.getTotalEarningAmount())"
             
             btnCreateOrUpdate.setTitle("Save", for: .normal)
         } else {
@@ -129,9 +133,19 @@ class CustomerCRUViewController: UIViewController {
             customer?.contact = contact
             customer?.email = email
             
+            DataStore.shared.saveContext()
+            
             alertMessage = "customer updated"
         } else {
-            ds.customers.append(Customer(firstName: firstName, lastName: lastName, address: address, contact: contact, email: email))
+            let newCustomer = CustomerCD(context: managedContext)
+            
+            newCustomer.firstName = firstName
+            newCustomer.lastName = lastName
+            newCustomer.address = address
+            newCustomer.contact = contact
+            newCustomer.email = email
+            
+            DataStore.shared.addCustomerItem(newCustomer)
             
             alertMessage = "'\(firstName+" "+lastName)' customer added"
         }
@@ -154,7 +168,8 @@ class CustomerCRUViewController: UIViewController {
         // Pass the selected object to the new view controller.
         
         if let vdc = segue.destination as? OrderMainTableViewController {
-            vdc.customer = customer
+//            TODO: customer orders
+//            vdc.customer = customer
         }
     }
 

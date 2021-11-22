@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import CoreData
 
 class CompanyCRUViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    var company: Company?
+    var company: CompanyCD?
+    
+    var managedContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext!
     
     let defaultImage:UIImage = UIImage(named: "default_company.png")!
     
@@ -29,10 +32,10 @@ class CompanyCRUViewController: UIViewController, UIImagePickerControllerDelegat
         // Do any additional setup after loading the view.
         
         if company != nil {
-            selImage = company?.logo
+            selImage = UIImage(data: (company?.logo)!)
             
             titleLabel.text = company?.name
-            idLabel.text = "ID: \(company!.id)"
+            idLabel.text = "ID: \(company!.oid)"
             nameInput.text = company?.name
             symbolInput.text = company?.symbol
             headquarterInput.text = company?.headquarter
@@ -123,18 +126,28 @@ class CompanyCRUViewController: UIViewController, UIImagePickerControllerDelegat
             return
         }
         
-        var alertMessage:String!
+        var alertMessage:String! 
         
         if company != nil {
             company?.name = name
             company?.symbol = symbol
             company?.headquarter = headquarter
             company?.email = email
-            company?.logo = selImage!
+            company?.logo = selImage?.pngData()
+            
+            DataStore.shared.saveContext()
             
             alertMessage = "company updated"
         } else {
-            ds.companies.append(Company(name: name, symbol: symbol, headquarter: headquarter, email: email))
+            let newCompany = CompanyCD(context: managedContext)
+            newCompany.name = name
+            newCompany.symbol = symbol
+            newCompany.headquarter = headquarter
+            newCompany.email = email
+            newCompany.logo = selImage?.pngData()
+            
+            DataStore.shared.addCompanyItem(newCompany)
+            
             alertMessage = "'\(name)' company added"
         }
         

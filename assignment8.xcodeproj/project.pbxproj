@@ -27,6 +27,7 @@
 		B29FCD872741258500FD2DB0 /* StockMainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD862741258500FD2DB0 /* StockMainTableViewController.swift */; };
 		B29FCD89274125CB00FD2DB0 /* StockCRUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD88274125CB00FD2DB0 /* StockCRUViewController.swift */; };
 		B29FCD8B274126AF00FD2DB0 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29FCD8A274126AF00FD2DB0 /* Stock.swift */; };
+		B2B14608274B475F00DF4128 /* assignment9.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B2B14606274B475F00DF4128 /* assignment9.xcdatamodeld */; };
 		B2C72EBD2742E6E0005411F8 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C72EBC2742E6E0005411F8 /* Order.swift */; };
 		B2C72EBF2742F662005411F8 /* SearchStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C72EBE2742F662005411F8 /* SearchStockViewController.swift */; };
 		B2C72EC1274301CF005411F8 /* SearchStockResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C72EC0274301CF005411F8 /* SearchStockResultsTableViewCell.swift */; };
@@ -58,6 +59,7 @@
 		B29FCD862741258500FD2DB0 /* StockMainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockMainTableViewController.swift; sourceTree = "<group>"; };
 		B29FCD88274125CB00FD2DB0 /* StockCRUViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCRUViewController.swift; sourceTree = "<group>"; };
 		B29FCD8A274126AF00FD2DB0 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock.swift; sourceTree = "<group>"; };
+		B2B14607274B475F00DF4128 /* assignment9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = assignment9.xcdatamodel; sourceTree = "<group>"; };
 		B2C72EBC2742E6E0005411F8 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		B2C72EBE2742F662005411F8 /* SearchStockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStockViewController.swift; sourceTree = "<group>"; };
 		B2C72EC0274301CF005411F8 /* SearchStockResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStockResultsTableViewCell.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				B29FCD632740DC3A00FD2DB0 /* Info.plist */,
 				B29FCD6C2740DCAD00FD2DB0 /* DataStore.swift */,
 				B29FCD722740E1DD00FD2DB0 /* Extensions.swift */,
+				B2B14606274B475F00DF4128 /* assignment9.xcdatamodeld */,
 			);
 			path = assignment8;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				B29FCD7F2741023C00FD2DB0 /* Customer.swift in Sources */,
 				B29FCD7B2740E95F00FD2DB0 /* CompanyCRUViewController.swift in Sources */,
 				B29FCD712740DFE500FD2DB0 /* CategoryMainTableViewController.swift in Sources */,
+				B2B14608274B475F00DF4128 /* assignment9.xcdatamodeld in Sources */,
 				B29FCD582740DC3600FD2DB0 /* SceneDelegate.swift in Sources */,
 				B2C72ECA27447D5D005411F8 /* OrderDetailViewController.swift in Sources */,
 				B29FCD6D2740DCAD00FD2DB0 /* DataStore.swift in Sources */,
@@ -494,6 +498,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B2B14606274B475F00DF4128 /* assignment9.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B2B14607274B475F00DF4128 /* assignment9.xcdatamodel */,
+			);
+			currentVersion = B2B14607274B475F00DF4128 /* assignment9.xcdatamodel */;
+			path = assignment9.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B29FCD4A2740DC3600FD2DB0 /* Project object */;
 }
