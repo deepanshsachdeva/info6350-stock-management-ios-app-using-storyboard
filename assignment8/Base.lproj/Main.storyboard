@@ -120,7 +120,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="zAS-ds-1ja">
-                                <rect key="frame" x="54" y="498" width="0.0" height="85"/>
+                                <rect key="frame" x="54" y="498" width="320" height="85"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="85" id="McG-vE-aIS"/>
                                 </constraints>
@@ -150,7 +150,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stock Quantity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5B-pG-Yvj">
-                                <rect key="frame" x="163.33333333333337" y="306" width="101.33333333333334" height="18"/>
+                                <rect key="frame" x="163.33333333333334" y="306" width="101.33333333333334" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -579,7 +579,7 @@
                                 <textInputTraits key="textInputTraits" textContentType="given-name"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Category:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIk-Pe-SwI">
-                                <rect key="frame" x="26.666666666666686" y="430" width="175" height="40"/>
+                                <rect key="frame" x="26.666666666666671" y="430" width="175" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="L3s-PE-zuC"/>
                                     <constraint firstAttribute="width" constant="175" id="fe9-3O-JMr"/>
@@ -599,7 +599,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WHi-uf-wSI">
-                                <rect key="frame" x="26.666666666666686" y="480" width="175" height="85"/>
+                                <rect key="frame" x="26.666666666666671" y="480" width="175" height="85"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="85" id="B2c-9H-cfP"/>
                                     <constraint firstAttribute="width" constant="175" id="tYN-d6-jMz"/>

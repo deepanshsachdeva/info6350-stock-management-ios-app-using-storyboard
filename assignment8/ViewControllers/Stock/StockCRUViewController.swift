@@ -52,13 +52,13 @@ class StockCRUViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             idLabel.text = "ID: \(stock!.oid)"
             nameInput.text = stock?.name
             
-            let ixCategory = categories.firstIndex(where: {$0.id == stock?.category?.id})
-            categoryPicker.selectRow(ixCategory!, inComponent: 0, animated: true)
-            selCategory = categories[ixCategory!]
+            let ixCategory = categories.firstIndex(where: {$0.id == stock?.category?.id}) ?? 0
+            categoryPicker.selectRow(ixCategory, inComponent: 0, animated: true)
+            selCategory = categories[ixCategory]
             
-            let ixCompany = companies.firstIndex(where: {$0.id == stock?.company?.id})
-            companyPicker.selectRow(ixCompany!, inComponent: 0, animated: true)
-            selCompany = companies[ixCompany!]
+            let ixCompany = companies.firstIndex(where: {$0.id == stock?.company?.id}) ?? 0
+            companyPicker.selectRow(ixCompany, inComponent: 0, animated: true)
+            selCompany = companies[ixCompany]
             
             lastTradePriceInput.text = String(stock!.lastTradePrice)
             financialRatingInput.text = String(stock!.financialRating)

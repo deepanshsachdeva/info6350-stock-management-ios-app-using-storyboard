@@ -14,6 +14,8 @@ class DataStore {
     
     private var nextId:Int16 = 0
     
+    private var apiUrl:String = "https://61a7f1a5387ab200171d2f68.mockapi.io/api/stocks"
+    
     let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     init() {
@@ -27,9 +29,40 @@ class DataStore {
         return nextId
     }
     
+    // MARK: API Call
+    func getDataFromApi() {
+        
+        var request:URLRequest = URLRequest(url: URL(string: apiUrl)!)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let session = URLSession.shared
+        
+        session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+            do {
+                let responseData = try JSONSerialization.jsonObject(with: data!) as! [AnyObject]
+                
+                for item in responseData {
+                    if let stock = item as? [String : String] {
+                        let s = StockCD(context: self.managedContext)
+                        
+                        s.name            = stock["name"]
+                        s.lastTradePrice  = Double(stock["lastTradePrice"]!) ?? 0.0
+                        s.financialRating = Int16(stock["financialRating"]!) ?? 1
+                        s.logo = UIImage(named: "default_stock")?.pngData()
+                        
+                        self.addStockItem(s)
+                    }
+                }
+            } catch {
+                print(error)
+            }
+        }).resume()
+    }
+    
     // MARK: sample data
     func cleanDB() {
-        print("cleaning DB...")
+        print("> cleaning DB...")
         
         let cdCategories = getCategories()
         for category in cdCategories {
@@ -51,7 +84,9 @@ class DataStore {
             managedContext.delete(customer)
         }
         
-        print("cleaning DB done")
+        saveContext()
+        
+        print("> cleaning DB done")
     }
     
     func initDB() {
@@ -83,6 +118,7 @@ class DataStore {
         comp2.logo = UIImage(named: "default_company")?.pngData()
         addCompanyItem(comp2)
         
+        /*
         let stock1 = StockCD(context: managedContext)
         stock1.name = "iPhone"
         stock1.company = comp1
@@ -100,6 +136,7 @@ class DataStore {
         stock2.financialRating = 5
         stock2.logo = UIImage(named: "default_stock")?.pngData()
         addStockItem(stock2)
+         */
         
         let cust1 = CustomerCD(context: managedContext)
         cust1.firstName = "Deepansh"
@@ -124,6 +161,8 @@ class DataStore {
         cust3.contact = "6789054321"
         cust3.email = "pre@gmail.com"
         addCustomerItem(cust3)
+        
+        getDataFromApi()
         
         saveContext()
     }
