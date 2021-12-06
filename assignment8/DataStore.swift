@@ -8,11 +8,14 @@
 import Foundation
 import CoreData
 import UIKit
+import SystemConfiguration
 
 class DataStore {    
     static let shared = DataStore()
     
     private var nextId:Int16 = 0
+    
+    private var networkReachable:Bool = false
     
     private var apiUrl:String = "https://61a7f1a5387ab200171d2f68.mockapi.io/api/stocks"
     
@@ -22,6 +25,32 @@ class DataStore {
         cleanDB()
         
         initDB()
+    }
+    
+    // MARK: network reachability
+    func connectedToNetwork() -> Bool {
+
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+
+        guard let defaultRouteReachability = withUnsafePointer(to: &zeroAddress, {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+                SCNetworkReachabilityCreateWithAddress(nil, $0)
+            }
+        }) else {
+            return false
+        }
+
+        var flags: SCNetworkReachabilityFlags = []
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) {
+            return false
+        }
+
+        let isReachable = flags.contains(.reachable)
+        let needsConnection = flags.contains(.connectionRequired)
+
+        return (isReachable && !needsConnection)
     }
     
     func getNextId() -> Int16 {
@@ -138,6 +167,10 @@ class DataStore {
         addStockItem(stock2)
          */
         
+        if connectedToNetwork() {
+            getDataFromApi()
+        }
+        
         let cust1 = CustomerCD(context: managedContext)
         cust1.firstName = "Deepansh"
         cust1.lastName = "Sachdeva"
@@ -161,8 +194,6 @@ class DataStore {
         cust3.contact = "6789054321"
         cust3.email = "pre@gmail.com"
         addCustomerItem(cust3)
-        
-        getDataFromApi()
         
         saveContext()
     }

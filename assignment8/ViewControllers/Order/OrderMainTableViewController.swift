@@ -16,6 +16,7 @@ class OrderMainTableViewController: UITableViewController {
     let ds = DataStore.shared
 
     @IBOutlet weak var customerLabel: UILabel!
+    @IBOutlet weak var createTabItem: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,8 @@ class OrderMainTableViewController: UITableViewController {
         customerLabel.text = "for \(customer.firstName!+" "+customer.lastName!) (ID: \(customer.oid))"
         
         refreshData()
+        
+        createTabItem.isEnabled = !ds.getStocks().isEmpty
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -161,6 +164,20 @@ class OrderMainTableViewController: UITableViewController {
                 vdc.customer = customer
             }
         }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "ordercreate" {
+            if ds.getStocks().isEmpty {
+                let alert = UIAlertController(title: "Message", message: "no stocks available to create order", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                
+                return false
+            }
+        }
+        
+        return true
     }
 
 }

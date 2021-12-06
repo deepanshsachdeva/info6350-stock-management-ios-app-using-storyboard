@@ -23,6 +23,14 @@ class StockMainTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         refreshData()
+        
+        if stocks.isEmpty && !DataStore.shared.connectedToNetwork()  {
+            tableView.setEmptyView(title: "Network Unreachable.", message: "Please check your internet connection.")
+            self.navigationItem.leftBarButtonItem = .none
+        } else {
+            tableView.restore()
+            self.navigationItem.leftBarButtonItem = self.editButtonItem
+        }
     }
 
     // MARK: - Table view data source
